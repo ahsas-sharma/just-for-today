@@ -1,6 +1,8 @@
 import '../styles/globals.css'
 import Head from "next/head";
-import { MantineProvider } from "@mantine/core";
+import { AppShell, MantineProvider } from "@mantine/core";
+import SideNav from "../components/UI/Nav/SideNav";
+import TopNav from "../components/UI/Nav/TopNav";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -21,7 +23,21 @@ function MyApp({ Component, pageProps }) {
           colorScheme: "dark",
         }}
       >
-        <Component {...pageProps} />
+        <AppShell
+          padding="md"
+          // navbar={<SideNav width={{ base: 300 }} height={500} p="xs"></SideNav>}
+          header={<TopNav height={60} p="xs"></TopNav>}
+          styles={(theme) => ({
+            main: {
+              backgroundColor:
+                theme.colorScheme === "dark"
+                  ? theme.colors.dark[8]
+                  : theme.colors.gray[0],
+            },
+          })}
+        >
+          <Component {...pageProps} />
+        </AppShell>
       </MantineProvider>
     </>
   );

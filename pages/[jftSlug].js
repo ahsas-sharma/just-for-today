@@ -12,7 +12,5 @@ export default function JFTReferencePage() {
   const router = useRouter();
   const { jftSlug } = router.query;
 
-  
-
   return <div>JFT Reference Page: {`${jftSlug}`}</div>;
 }
