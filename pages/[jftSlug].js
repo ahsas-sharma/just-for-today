@@ -9,14 +9,15 @@
 import { getAllPosts, getPostData, getPostsFiles } from '../lib/posts-util';
 
 import { useRouter } from 'next/router';
+import JFTPost from "../components/JFT/JFTPost";
 
 export default function JFTReferencePage({ post }) {
   const router = useRouter();
   const { jftSlug } = router.query;
 
-  console.log('Post Data', post);
+  // console.log('Post Data', post);
 
-  return <div>JFT Reference Page: {`${jftSlug} ${post.content}`}</div>;
+  return <JFTPost post={post} />;
 }
 
 export function getStaticProps(context) {
