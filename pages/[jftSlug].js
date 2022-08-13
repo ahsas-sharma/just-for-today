@@ -6,11 +6,45 @@
  * JFT ReferencePage
  */
 
-import { useRouter } from "next/router";
+import { getAllPosts, getPostData, getPostsFiles } from '../lib/posts-util';
 
-export default function JFTReferencePage() {
+import { useRouter } from 'next/router';
+
+export default function JFTReferencePage({ post }) {
   const router = useRouter();
   const { jftSlug } = router.query;
 
-  return <div>JFT Reference Page: {`${jftSlug}`}</div>;
+  console.log('Post Data', post);
+
+  return <div>JFT Reference Page: {`${jftSlug} ${post.content}`}</div>;
+}
+
+export function getStaticProps(context) {
+  const { jftSlug } = context.params;
+  const post = getPostData(jftSlug);
+  return {
+    props: {
+      post,
+    },
+    revalidate: 600,
+  };
+}
+
+export function getStaticPaths() {
+  const allJFTs = getAllPosts();
+  const allJFTFiles = getPostsFiles();
+  const pathNames = allJFTFiles.map((post) => ({
+    params: {
+      jftSlug: post.replace(/\.md$/, ''),
+    },
+  }));
+  const paths = allJFTs.map((posts) => ({
+    params: {
+      jftSlug: posts.slug,
+    },
+  }));
+  return {
+    paths: pathNames,
+    fallback: false,
+  };
 }
