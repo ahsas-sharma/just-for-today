@@ -5,7 +5,7 @@ import { Container, Tabs } from '@mantine/core';
 import JFTPost from "../components/JFT/JFTPost";
 
 export default function Home({ post }) {
-  console.log("Home Page Post: ", post);
+  // console.log("Home Page Post: ", post);
   return (
     <Container>
       <Head>
